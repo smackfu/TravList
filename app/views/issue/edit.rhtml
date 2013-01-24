@@ -1,0 +1,20 @@
+<h1>Editing issue</h1>
+
+<%= start_form_tag :action => 'update', :id => @issue %>
+<%= error_messages_for 'issue' %>
+
+<%= render :partial => 'basic' %>
+
+<p><label for="issue_resolution">Response/Notes:</label><br/>
+<%= text_area 'issue', 'response', :rows => 10  %></p>
+
+<p><%= check_box 'issue', 'closed'  %>
+<label for="userplace_private">Closed</label></p>
+
+
+<!--[eoform:issue]-->
+<%= submit_tag 'Save' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'show', :id => @issue %> |
+<%= link_to 'Back', :action => 'list' %>

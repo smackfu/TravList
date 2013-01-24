@@ -1,0 +1,22 @@
+<% if placelist.size > 0 -%>
+<div class="boxouter" style="width: 450px;">
+<h3><%= @title || 'Places' %></h3>
+<div class="box">
+
+<div class="userplaces">
+<div class="name">&nbsp;</div>
+<div class="date"><b>Visited</b></div>
+</div>
+<% @singleuser = true -%>
+<%= render_partial_collection 'userplace/userplace_brief', placelist %>
+<br>
+<br class="clear">
+<% if !@nofooter -%>
+<% if session[:user] == @user && !@readonly -%>
+<%= link_to 'New place', :controller=>'userplace', :action=>'new' %> |
+<% end -%>
+<%= link_to 'All places', :controller=>'userplace', :action=>'listuser', :user=>@user  %>
+<% end -%>
+</div>
+</div>
+<% end -%>

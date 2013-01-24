@@ -1,0 +1,5 @@
+<% @showmap = true %>
+<h3><%= link_to @user.login, :controller => 'user', :action=>'show', :id=>@user %></h3>
+<h1><%= link_to @tagname, :controller=> 'user', :action=>'tag', :id=>@user, :name=>@tagname %> map</h1>
+
+<%= render_partial 'userplace/map_many', @mapplaces%>

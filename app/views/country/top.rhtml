@@ -1,0 +1,7 @@
+<h1>Top Countries</h1>
+
+<% for country in @countries %>
+
+<%= link_to country.name, :action=>'show', :id=>country.id %> (<%= country.count%>)<br>
+
+<% end %>

@@ -1,0 +1,14 @@
+<% if !photo.private %>
+<div class="blognote">
+<h3 class="blog">
+<%= render :partial=>'country/flag', :locals => { :country => photo.userplace.place.country }%>
+<%= link_to photo.userplace.place.name, {:controller=> 'userplace', :action=>'show', :id=>photo.userplace} %> - 
+<small><%= photo.date.strftime('%B %e, %Y') %></small>
+</h3>
+<p>
+<div class="photo"><a href="<%= photo.flickr_url %>"><img class="photo" src="<%= photo.flickr_img+'_m.jpg' %>"></a><br>
+<small><%= photo.caption %></small></div>
+</p>
+</div>
+<% end %>
+

@@ -1,0 +1,29 @@
+<h3><%= link_to @user.login, :controller => 'user', :action=>'show', :id=>@user if @user %></h3>
+<h1>Issue #<%= @issue.id %> <%= '(Closed)' if @issue.closed %></h1>
+
+<p><a href="<%=h @issue.url %>"><%= @issue.url %></a></p>
+<p>Opened on <%= @issue.created_at.strftime('%B %e, %Y') %> (<%= time_ago_in_words @issue.created_at %> ago)</p>
+
+<div class="comment">
+<% if is_admin && @issue.email != '' -%>
+From: <b><%= @issue.email %></b><br/><br/>
+<% end -%>
+<%= h(@issue.description).gsub("\n","<br>") %>
+</div>
+
+<% if @issue.response != '' %>
+<h3>Response</h3>
+<div class="comment">
+<%= h(@issue.response).gsub("\n","<br>") %>
+</div>
+<% end %>
+
+<% if @issues.size > 1 %>
+<h3>Other issues on this page</h3>
+<%= render :partial => 'list' %>
+<br>
+<% end %>
+
+<%= link_to 'Edit', :action => 'edit', :id => @issue %> |
+<%= link_to 'Delete', { :action => 'destroy', :id => @issue }, :confirm => 'Are you sure?', :post => true %> | 
+<%= link_to 'Back', :action => 'list' %>

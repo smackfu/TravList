@@ -1,0 +1,20 @@
+<% @ajax = true %>
+<%= error_messages_for 'movie' %>
+<h3><%= image_tag 'flags/'+@userplace.place.country.isocode.downcase+'.gif' %>
+<%= link_to_unless (@userplace.place.country.id == 0), @userplace.place.country.name, :controller => 'country', :action=>'show',:id=>@userplace.place.country %>
+</h3>
+<h1><%= link_to @userplace.place.name, :controller=>'userplace', :action=>'show', :id=>@userplace %></h1>
+
+<!--[form:movie]-->
+<p><label for="movie_date">Date</label><br/>
+<%= date_select 'movie', 'date'  %></p>
+
+<p><label for="movie_youtube_id">YouTube ID</label>
+<%= text_field 'movie', 'youtube_id', 'size'=>20  %><br>
+<small>Copy this from YouTube. The part you want is in blue:<br>
+&nbsp;http://www.youtube.com/watch?v=<span style='color: #0000FF'>8kx4d33Q43bA</span></small></p>
+
+<%= hidden_field 'movie', 'userplace_id'  %>
+
+<!--[eoform:movie]-->
+

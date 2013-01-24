@@ -1,0 +1,32 @@
+<% @page_title = 'Search' %>
+<h3><%= link_to 'travList', :controller=>'meta', :action=>'index' %></h3>
+<% if @placequery %>
+
+<h2>Place search results</h2>
+<% if @places.size > 0 %>
+<p>For search '<%=h @placequery %>':</p>
+<% for place in @places %>
+
+<p>&nbsp;<%= link_to place.name+', '+place.country.name, :action => 'show', :id => place %></p>
+
+<% end %>
+<p>&nbsp;</p>
+<% else %>
+<% if @tooshort %>
+<p><b>What you searched for ('<%=h @placequery %>') was too short.</b></p>
+<p>Try entering more than three letters.</p>
+<% else %>
+<p><b>No places found that matched '<%=h @placequery %>'.</b> This doesn't mean that '<%=h @placequery %>' doesn't exist.  It probably does, unless it's Brigadoon or something.  Rather, it just means no one on travList has visited there yet.</p> 
+<p>You could try being less specific.  And make sure you haven't included the name of the country.</p>
+<% end %>
+<% end %>
+
+<% else %>
+<h2>Place search</h2>
+<% end %>
+
+<%= start_form_tag ({:controller => 'place', :action => 'search'}, {:method=>'get'}) %>
+    Search for a placename: <%= text_field_tag 'placename'  %>
+    <%= submit_tag 'Search' %>
+<%= end_form_tag %>
+

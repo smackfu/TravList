@@ -1,0 +1,116 @@
+<% @showmap = true %>
+<script>
+function roundDec(dec)
+{
+ return ((Math.round(dec*100000))/100000);
+}
+function calcDecLat()
+{
+ deg = parseFloat(document.forms[0].elements['latdeg'].value);
+ mm = parseFloat(document.forms[0].elements['latmm'].value);
+ ss = parseFloat(document.forms[0].elements['latss'].value);
+ if (isNaN(deg)) deg=0;
+ if (isNaN(mm)) mm=0;
+ if (isNaN(ss)) ss=0;
+ dec = 0 +deg + (deg<0?-1:1)*((mm/60) + (ss/3600));
+ document.forms[0].elements['place[lat]'].value = roundDec(dec);
+}
+function calcDecLong()
+{
+ deg = parseFloat(document.forms[0].elements['longdeg'].value);
+ mm = parseFloat(document.forms[0].elements['longmm'].value);
+ ss = parseFloat(document.forms[0].elements['longss'].value);
+ if (isNaN(deg)) deg=0;
+ if (isNaN(mm)) mm=0;
+ if (isNaN(ss)) ss=0;
+ dec = 0 +deg + (deg<0?-1:1) * ((mm/60) + (ss/3600));
+ document.forms[0].elements['place[long]'].value = roundDec(dec);
+}
+function calcDMSLat()
+{
+ dec = parseFloat(document.forms[0].elements['place[lat]'].value);
+ sign = dec<0?-1:1;
+ dec = dec * sign;
+ deg = Math.floor(dec);
+ document.forms[0].elements['latdeg'].value = deg * sign;
+ dec = dec - deg;
+ mm = Math.floor(dec * 60);
+ document.forms[0].elements['latmm'].value = mm;
+ dec = (dec * 60) - mm;
+ ss = Math.floor(dec * 60);
+ document.forms[0].elements['latss'].value = ss;
+} 
+function calcDMSLong()
+{
+ dec = parseFloat(document.forms[0].elements['place[long]'].value);
+ sign = dec<0?-1:1;
+ dec = dec * sign;
+ deg = Math.floor(dec);
+ document.forms[0].elements['longdeg'].value = deg * sign;
+ dec = dec - deg;
+ mm = Math.floor(dec * 60);
+ document.forms[0].elements['longmm'].value = mm;
+ dec = (dec * 60) - mm;
+ ss = Math.floor(dec * 60);
+ document.forms[0].elements['longss'].value = ss;
+} 
+</script>
+<h1>Update place</h1>
+
+<%= start_form_tag :action => 'update', :id => @place %>
+  <%= render :partial => 'form' %>
+
+<br>
+<h3>Location</h3>
+<p><label for="place_lat">Latitude</label>
+<%= text_field 'place', 'lat', "size" => 10, :onchange=>"javascript: calcDMSLat()"%> or 
+<input id="latdeg" name="latdeg" size="3" maxlength="3" type="text" onchange="javascript: calcDecLat()"/> <b>°</b>
+<input id="latmm" name="latmm" size="2" maxlength="5" type="text" onchange="javascript: calcDecLat()"/> <b>'</b>
+<input id="latss" name="latss" size="2" maxlength="5" type="text" onchange="javascript: calcDecLat()"/> <b>"</b>
+<br> <small>(South of the equator is negative)</small></p>
+<p><label for="place_long">Longitude</label>
+<%= text_field 'place', 'long', "size" => 10, :onchange=>"javascript: calcDMSLong()" %> or 
+<input id="longdeg" name="longdeg" size="3" maxlength="3" type="text" onchange="javascript: calcDecLong()"/> <b>°</b>
+<input id="longmm" name="longmm" size="2" maxlength="5" type="text" onchange="javascript: calcDecLong()"/> <b>'</b>
+<input id="longss" name="longss" size="2" maxlength="5" type="text" onchange="javascript: calcDecLong()"/> <b>"</b>
+<br> <small>(East of Greenwich is negative)</small></p>
+
+<script>
+calcDMSLat();
+calcDMSLong();
+</script>
+
+<p>You can click on the map to directly set the latitude and longitude:</p>
+<div id="map" style="width: 500px; height: 400px"></div>
+<script type="text/javascript" defer="defer">
+
+var map = new GMap2(document.getElementById("map"));
+var marker;
+map.addControl(new GSmallMapControl());
+map.addControl(new GMapTypeControl());
+<% if @place.lat == 0 %>
+map.setCenter(new GLatLng(0,0), 1, G_HYBRID_MAP);
+<% else %>
+var orig = new GLatLng(<%= @place.lat %>, <%= @place.long %>); 
+map.setCenter(orig, 8, G_HYBRID_MAP);
+marker = new GMarker(orig);
+map.addOverlay(marker);
+
+<% end %>
+
+GEvent.addListener(map, 'click', function(overlay, point) {
+  document.forms[0].elements['place[lat]'].value = roundDec(point.y);
+  document.forms[0].elements['place[long]'].value = roundDec(point.x);
+  calcDMSLat();
+  calcDMSLong();
+  map.removeOverlay(marker);
+  marker = new GMarker(point);
+  map.addOverlay(marker);
+});
+
+</script>
+  
+<p>  <%= submit_tag 'Save' %></p>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'show', :id => @place %>

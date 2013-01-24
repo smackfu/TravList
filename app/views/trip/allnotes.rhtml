@@ -1,0 +1,14 @@
+<% @page_title = @trip.name+' notes' %>
+<h3><%= link_to @trip.user.login, :controller => 'user', :action=>'show', :id=>@trip.user %></h3>
+<h1><%= link_to @trip.name, :action=>'show', :id=>@trip  %> notes</h1>
+
+<% if @trip.comment.chop.length!=0 %>
+<p class="boxheader">general notes</p>
+<p class="comment"><%= auto_link(h(@trip.comment).gsub("\n","<br>")) %></p>
+<% end %>
+
+<% @showplace = true %>
+<%= render_partial_collection 'daynote/show', @daynotes %>
+
+<%= link_to 'Back to trip', :action=>'show', :id=>@trip %><br>
+

@@ -1,0 +1,86 @@
+<% @showmap = true -%>
+<% @page_title = @trip.user.login + ' - ' + @trip.name + ' trip map'-%>
+<link rel="alternate" type="application/rss+xml" title="RSS" href="<%= url_for :action=>'rss', :id=>@trip.id %>">
+<h3><%= link_to @trip.user.login, :controller => 'user', :action=>'show', :id=>@trip.user %></h3>
+<h1><%= link_to @trip.name, :action=>'show', :id=>@trip  %> trip map</h1>
+
+<% if @userplaces.size > 0 %>
+<div style="width: 1px; height: 400px; float: left;"></div>
+<div id="map" style="width: 600px; height: 400px"></div>
+<script type="text/javascript" defer="defer">
+//<![CDATA[
+
+var baseIcon = new GIcon();
+baseIcon.image = "/images/marker.png";
+baseIcon.iconSize = new GSize(17, 17);
+baseIcon.iconAnchor = new GPoint(8, 8);
+baseIcon.infoWindowAnchor = new GPoint(9, 2);
+baseIcon.infoShadowAnchor = new GPoint(18, 25);
+
+var startIcon = new GIcon(baseIcon);
+startIcon.image = "/images/markerS.png";
+var endIcon = new GIcon(baseIcon);
+endIcon.image = "/images/markerE.png";
+
+var map = new GMap2(document.getElementById("map"));
+map.addControl(new GSmallMapControl());
+map.addControl(new GMapTypeControl());
+
+
+// Create a marker whose info window displays the given number.
+function createMarker(point, label, icon) {
+  var marker = new GMarker(point,icon);
+
+  // Show this marker's index in the info window when it is clicked.
+  var html = label;
+  GEvent.addListener(marker, 'click', function() {
+        marker.openInfoWindowHtml(html);
+  });
+
+  return marker;
+}
+
+var points = [];
+var thispoint;
+var bounds = new GLatLngBounds();
+<% for userplace in @userplaces %>
+thispoint = new GLatLng(<%= userplace.place.lat %>, <%= userplace.place.long %>);
+points.push(thispoint);
+bounds.extend(thispoint);
+<% end %>
+var newZoom = map.getBoundsZoomLevel(bounds); 
+map.setCenter(bounds.getCenter(), newZoom, G_HYBRID_MAP);
+map.setMapType(G_HYBRID_TYPE);
+
+map.addOverlay(new GPolyline(points, '#FF5726'));
+
+var thispoint;
+<% for userplace in @userplaces %>
+<% icon = 'baseIcon' -%>
+<% icon = 'startIcon' if userplace == @userplaces[0] -%>
+<% icon = 'endIcon' if userplace == @userplaces[@userplaces.size-1] -%>
+
+thispoint = new GLatLng(<%= userplace.place.lat %>, <%= userplace.place.long %>);
+popupHTML = '<div style="white-space:nowrap;"><%= link_to escape_javascript(userplace.place.name), :controller=>'userplace', :action=>'show', :id=>userplace %></div>';
+map.addOverlay(createMarker(thispoint,popupHTML, <%= icon %>));
+<% end -%>
+
+  
+//]]>
+</script>
+
+<% else %>
+<p>Nothing to map.</p>
+<% end %>
+<% if @errors.size > 0 %>
+<br>
+<p><b>Note:</b> The following location(s) were missing lat/long and are not included in the route:</p>
+<ul>
+<% for error in @errors %>
+<li><%= link_to error.name, :controller=>'place', :action=>'edit', :id=>error.id %></li>
+<% end %>
+</ul>
+<p>This is supposed to be automatically looked up but it is not foolproof.  If you click through and update those fields,  the missing places will  be added to the map.</p>
+<% end %>
+<%= link_to 'Back to trip', :action=>'show', :id=>@trip %><br>
+

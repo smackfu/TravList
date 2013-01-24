@@ -1,0 +1,12 @@
+<div class="boxouter" style="width: 500px;">
+<h3>Recently entered trips</h3>
+<div class="box">
+<% if @trips.size > 0 %>
+<% @singleuser = false %>
+<%= render_partial_collection 'trip/trip_brief', @trips %>
+</p>
+<br class="clear">
+<% end %>
+</div>
+</div>
+

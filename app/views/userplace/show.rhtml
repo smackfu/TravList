@@ -1,0 +1,74 @@
+<% @ajax = true -%>
+<% @script = 'calendar' -%>
+<% @page_title = @userplace.place.name+' / '+@userplace.trip.user.login -%>
+<% if @userplace.trip.fake -%>
+<h3><%= link_to @userplace.trip.user.login, :controller => 'user', :action=>'show', :id=>@userplace.trip.user %></h3>
+<% else %>
+<h3><%= link_to @userplace.trip.name, :controller =>'trip', :action=>'show', :id=>@userplace.trip %></h3>
+<% end %>
+<h1>
+<%= link_to @userplace.place.name, :controller=>'place', :action=>'show', :id=>@userplace.place %> <%= link_to_unless (@userplace.place.country.id == 0), (image_tag 'flags/'+@userplace.place.country.isocode.downcase+'.gif'), :controller => 'country', :action=>'show',:id=>@userplace.place.country %> </h1>
+<div id="rating">
+<%= render_partial 'rating' %>
+</div>
+
+<%= render_partial 'date' %>
+<%= render_partial 'tags' %>
+<% if @userplace.who_with.length > 0 %>
+<p>With 
+<% whos = @userplace.who_with.split(',') %>
+<% for who in whos %><% who = who.strip %><%= ' and ' if who == whos.last.strip && whos.size != 1 %><%= ', ' if who != whos.first.strip && who != whos.last.strip && whos.size != 1%><%= link_to h(who), :controller=>'user', :action=>'with', :id=>@userplace.trip.user.id, :name=>who  %><%= '.' if who == whos.last.strip %><% end %>
+</p>
+<% end %>
+
+<% if session[:user] == @userplace.trip.user %>
+<p><%= image_tag 'icons/page_edit.png' %> <%= link_to 'Edit', :action => 'edit', :id => @userplace %> |
+<%= image_tag 'icons/page_delete.png' %> <%= link_to 'Delete', { :action => 'destroy', :id => @userplace }, :confirm => 'Are you sure?', :post => true %>
+<% if !@userplace.trip.fake %>
+| <%= image_tag 'icons/page_add.png' %> <%= link_to 'Add next stop', :action=>'new',:trip_id=>@userplace.trip, :date=>@userplace.start_date  %>
+<% end %></p>
+<p>
+<%= image_tag 'icons/page_white_edit.png' %> <%= link_to_remote 'Add a note', :update=>'newnote', :url=>{:controller=> 'daynote', :action => 'new', :userplace_id => @userplace, :date => @displaydate || @userplace.start_date} %> 
+| <%= image_tag 'icons/image.gif' %> <%= link_to 'Add a photo', :controller=> 'photo', :action => 'new', :userplace_id => @userplace, :date => @displaydate || @userplace.start_date %><br>
+<div id="newnote"></div>
+</p>
+<% end %>
+
+<%= render_partial_collection 'daynote/show', @userplace.daynote_for(@displaydate) %>
+
+
+<% if @userplace.review != nil && @userplace.review.chop.length!=0 %>
+<p class="boxheader">review</p>
+<p class="review"><%= auto_link(h(@userplace.review).gsub("\n","<br>")) %></p>
+<% end %>
+
+<% if @userplace.photo_for(@displaydate).size > 0 -%>
+<%= render_partial_collection 'photo/show', @userplace.photo_for(@displaydate) %>
+<br  class="clear">
+<% end -%>
+<% if @movies != nil && @movies.size > 0 -%>
+<%= render_partial_collection 'movie/show', @movies %>
+<br class="clear">
+<% end -%>
+<% if @userplace.photo_for(@displaydate).size != @userplace.photo.size || @userplace.daynote_for(@displaydate).size != @userplace.daynote.size -%>
+<p><%= link_to "Show notes/photos for all days", :action => 'show', :id => @userplace -%></p>
+<% end -%>
+
+<% if @displaydate != nil && @userplace.end_date !=nil %>
+<p>
+<% if @displaydate > @userplace.start_date %>
+<%= link_to 'Previous day', :controller => 'userplace', :action=>'show',:id=>@userplace,:date=>(@displaydate-1)  %> 
+<% else %>
+<strike>Previous Day</strike>
+<% end %> | 
+<% if @displaydate < @userplace.end_date %>
+<%= link_to 'Next day', :controller => 'userplace', :action=>'show',:id=>@userplace,:date=>(@displaydate+1)  %>
+<% else %>
+<strike>Next Day</strike>
+<% end %></p> 
+<% end %>
+<% if !@userplace.trip.fake %>
+<%= link_to 'Back to trip', :controller => 'trip', :action=>'show',:id=>@userplace.trip  %><br>
+<% else %>
+<%= link_to 'Back', :controller => 'user', :action=>'show',:id=>@userplace.trip.user  %><br>
+<% end %>    

@@ -1,0 +1,16 @@
+Trips
+======
+
+<% for column in Trip.columns %><%= column.human_name %>,<% end %>
+<% @trips.each do |trip| -%>
+<% for column in Trip.columns %><%=h trip.send(column.name).to_s.gsub("\r\n","\\n") %>,<% end %>
+<% end -%>
+
+Places
+========
+
+<% for column in Userplace.columns %><%= column.human_name %>,<% end %>
+<% @userplaces.each do |userplace| -%>
+<% for column in Userplace.columns %><%=h userplace.send(column.name).to_s.gsub("\r\n","\\n") %>,<% end %>
+<% end -%>
+

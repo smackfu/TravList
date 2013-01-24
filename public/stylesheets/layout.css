@@ -1,0 +1,437 @@
+body {
+}
+
+body, p, ol, ul, td {
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size:   13px;
+  line-height: 18px;
+}
+
+body {
+  margin: 0px;
+}
+
+pre {
+  padding: 10px;
+  font-size: 11px;
+}
+
+
+h1 a {
+ text-decoration: none; 
+}
+
+.fieldWithErrors {
+  padding: 2px;
+  display: table;
+}
+
+#ErrorExplanation {
+  width: 400px;
+  border-width: 2px;
+  border-style: solid;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+}
+
+#ErrorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+}
+
+#ErrorExplanation p {
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#ErrorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}
+
+div.uploadStatus {
+  margin: 5px;
+}
+
+div.progressBar {
+  margin: 5px;
+}
+
+div.progressBar div.border {
+  border-width: 1px;
+  border-style: solid;
+  width: 100%;
+}
+
+div.progressBar div.background {
+  height: 18px;
+  width: 0%;
+}
+
+div.outer {
+  margin-top: 15px;
+  margin-left: 20px;
+  margin-right: 150px;
+}
+
+div.boxouter {
+  border-width: 3px;
+  border-style: solid;
+  float: left;
+  clear: left;
+  width: 300px;
+  margin: 10px 10px 10px 0px;
+}
+
+div.boxouter h3 {
+  margin: 0px;
+  padding: 1px 1px 4px 7px;
+  font-size: 13px;
+}
+
+div.border {
+  border-width: 3px;
+  border-style: solid;
+  background-image: url(/images/bg.jpg);
+  background-repeat: repeat-y;
+  clear: left;
+}
+
+div.content {
+  padding: 10px;
+  margin: 0 0 0 55px;
+}
+
+div.login {
+  border-width: 0 0px 3px 3px ;
+  border-style: solid;
+  padding: 4px;
+  float: right;
+
+}
+
+div.footer {
+  text-align: center;
+  font-size: 10px;
+}
+
+div.tab {
+  padding: 4px 16px 6px;
+  font-weight: bold;
+  }
+
+div.tabtop {
+  float: left;
+  font-size: 15px;
+  width: auto;
+  margin-bottom: 0px;
+  margin-right: auto;
+  border-width: 0 5px 0px 0 ;
+  border-style: solid;
+  padding-top: 4px;
+  }
+
+div.tabactive {
+  padding-top: 7px;
+  border-width: 0px 5px 0px 0 ;
+  border-style: solid;
+}
+
+div.tabbottom {
+  float: right;
+  border-width: 0;
+  border-style: solid;
+}
+
+div.logo {
+  font-size: 20px;
+  padding: 0px 0px 4px;
+  font-weight: normal;
+}
+div.tab a{
+ text-decoration: none; 
+}
+
+.boxheader {
+  line-height: 0.5;
+  font-size: 10px;
+  padding: 5px 15px;
+  width: auto;
+  margin-bottom: 0px;
+  margin-right: auto;
+  float: left;
+  border-width: 0 2px 0 0 ;
+  border-style: solid;
+}
+
+.boxheader.sub {
+}
+
+.boxheader.sub a {
+}
+
+.boxheader a{
+  text-decoration: none;
+  }
+
+.boxheader img{
+  border:none;
+}
+
+img.flag {
+		vertical-align: baseline;		
+}
+
+.comment, .review {
+  border-width: 1px;
+  border-style: solid;
+  width: 400px;
+  padding: 10px;
+  margin: 0 0 20px 0;
+  clear: left;
+}
+
+p.blog {
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+  margin: 0 20px 20px 0;
+}
+
+.outline {
+  border-width: 1px;
+  border-style: solid;
+  width: 400px;
+  padding: 10px;
+  margin: 0 0 20px 0;
+  clear: left;
+}
+
+div.photo {
+  margin: 0 0 20px 0;
+  clear: left;
+}
+
+img.photo {
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+}
+
+h1 img {
+	vertical-align: baseline;
+}
+
+img {
+  vertical-align: text-bottom;
+  border-width: 1px;
+  border-style: solid;
+}
+
+a:hover img {
+  border-width: 1px;
+  border-style: solid;
+  }
+
+div.day {
+  float: left;
+  width: 70px;
+  margin-right: 20px;
+  padding: 5px;
+  border-width: 0 1px 1px 1px;
+  border-style: solid;  
+}
+
+div.daylist {
+  float: left;
+  clear: left;
+  border-width: 3px 0 0 0;
+  border-style: solid;
+  width: 400px;
+  padding-bottom: 10px;
+  }
+
+div.daylist a {
+ text-decoration: none; 
+}
+
+div.daylist small {
+ font-size: 9px;
+}
+
+div.daylist p {
+  margin-bottom: 0px;
+  margin-top: 5px;
+}
+
+div.daylist p.major {
+  font-weight: bold;
+}
+
+div.daylist img {
+}
+
+div.divider {
+  margin: 20px 0 0 0;
+  line-height: 3px;
+}
+
+div.daybox {
+  float: left;
+}
+
+br.clear {
+  overflow: hidden;
+  clear:both;
+  height:0;
+  margin:0;
+  font-size: 1px;
+  line-height: 0;
+  }
+
+.trips, .userplaces {
+   clear: both;
+}
+.userplaces  img {
+  vertical-align: middle
+}
+
+.name {
+   float: left;
+   width: 200px;
+   margin-right: 10px;
+}
+.user, .date {
+   float: left;
+   width: 120px;
+}
+
+.number {
+   float: left;
+   width: 5em;
+   text-align: center;
+}
+
+div.box {
+  padding: 10px;
+}
+
+div.edge {
+  border-width: 0 0px 3px 3px ;
+  border-style: solid;
+  width: 40px;
+  float: left;
+
+}
+
+.prog-bar {
+  height: 11px;
+  margin: 2px;
+  padding: 0;
+  background: #C9DDEC;
+  text-align: center;
+  font-size: 10px;
+}
+
+.prog-border {
+  height: 15px;
+  width: 205px;
+  background: #fff;
+  border-width: 1px;
+  border-style: solid;
+  margin: 0;
+  padding: 0;
+}
+
+.calbox {
+  height: 20px;
+  width: 20px;
+  float: left;
+  border-width: 1px;
+  border-style: solid;
+  text-align: center;
+}
+
+.calbox.link {
+}
+
+.calbox.dark {
+}
+
+.calbox.spacer {
+  border-width: 1px;
+  border-style: solid;
+}
+
+.monthbox_outer {
+  width: 180px;
+  height: 170px;
+  float: left;
+  padding: 10px;
+}
+
+.monthbox {
+  border-width: 1px;
+  border-style: solid;
+  padding: 10px;
+  clear: both;
+}
+
+.bug {
+ font-size: 10px;
+ margin-left: 65px;
+}
+
+.bug a{
+ text-decoration: none;
+}
+
+div.ad {
+ float:right;
+ margin-top: 30px;
+ margin-right: 10px;
+ width: 120px;
+}
+
+a.star, a.star:hover, a.nostar:hover {
+  float: left;
+  width: 20px;
+  height: 15px;
+  text-decoration: none;
+  background-color: #FFF;
+  background-image: url(/images/star.gif);
+  background-repeat: no-repeat;
+  }
+
+a.nostar {
+  float: left;
+  width: 20px;
+  height: 15px;
+  text-decoration: none;
+  background-color: #FFF;
+  background-image: url(/images/dot.gif);
+  background-repeat: no-repeat;
+  }
+
+div.photobox {
+  float: left;
+  margin-right: 20px;
+}
+
+div.triplist {
+  float: left;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+div.triplegend {
+  float: left;
+  padding: 10px;
+  border-width: 1px;
+  border-style: solid;
+}
+

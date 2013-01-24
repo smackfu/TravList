@@ -1,0 +1,19 @@
+<% daynote = show -%>
+<% if (!daynote.private || (daynote.private && session[:user] == daynote.userplace.trip.user))  %>
+<div id="daynote<%= daynote.id %>">
+<p class="boxheader">
+<%= link_to daynote.userplace.place.name + ' ', {:controller=> 'userplace', :action=>'show', :id=>daynote.userplace} if @showplace %>
+<%= daynote.notetype.name.downcase if daynote.notetype_id != 0%> notes
+<% if daynote.date %>
+ for <%= daynote.date.strftime('%B %e, %Y') %>
+<% end %>
+</p>
+<% if session[:user] == daynote.userplace.trip.user %>
+<p class="boxheader sub"><%= link_to_remote 'edit', :update=>'daynote'+daynote.id.to_s, :url=>{ :controller=> 'daynote', :action=> 'edit', :id => daynote.id } %></p>
+<p class="boxheader sub"><%= link_to_remote 'delete', :update=>'daynote'+daynote.id.to_s, :url=>{ :controller=> 'daynote', :action => 'destroy', :id => daynote.id }, :confirm => 'Are you sure?' %></p>
+<% end %>
+<p class="comment">
+<%= image_tag 'lockIcon.gif', :title => 'protected from public viewing' if daynote.private%> <%= auto_link(h(daynote.comment).gsub("\n","<br>")) %></p>
+</div>
+<% end %>
+

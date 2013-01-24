@@ -1,0 +1,41 @@
+<% @page_title = @user.login %>
+<link rel="alternate" type="application/rss+xml" title="RSS" href="<%= url_for :action=>'rss', :id=>@user.id %>">
+<h3><%= link_to 'travList', :controller=>'meta', :action=>'index' %></h3>
+<h1><%= @user.login %></h1>
+
+<%= render_partial_collection 'photo/show_small', @user.photos %>
+
+<%= render :partial=>'top_tags', :locals => {:tags => @user.top_tags }%>
+
+<div style="float: left; margin-right: 20px;">
+<%= render :partial => 'trip/yourtrips', :locals => {:triplist => @user.trips } %>
+
+<% @title = 'Recent places' %>
+<%= render :partial => 'userplace/yourplaces', :locals => { :placelist => @user.notrip_userplaces } %>
+
+<% @title = 'Wishlist' %>
+<%= render :partial=> 'userplace/wishlist', :locals => { :placelist => @user.wishlist } %>
+
+<% @title = 'Recently updated' %>
+<%= render :partial => 'userplace/yourplaces', :locals => { :placelist => @user.userplaces } %>
+
+</div>
+
+<div style="width: 200px; float: left;">
+<p> <%= link_to 'Travel scorecard', :action=>'scorecard', :id=>@user %> <br><small>See which countries and continents have been visited.</small></p>
+<p> <%= link_to 'Push-pin map', :action=>'map', :id=>@user %> <br><small>Map showing all visited places.</small></p>
+<p><%= link_to 'Calendar', :action=>'calendar', :id=>@user %><br><small> See when travels were.</small></p>
+<% if !@user.userpref.url.blank? -%>
+<p><%= image_tag 'icons/external.gif' %><a href="<%= @user.userpref.url %>">Homepage</a></p>
+<% end -%>
+
+<% if session[:user] == @user %>
+<p>
+<%= link_to 'Preferences', :controller=>'userpref',:action=>'edit', :id=>@user.userpref %><br/>
+<%= link_to 'Bugs you opened', :controller=>'issue',:action=>'listyours' %><br/>
+<%= link_to 'Logout', :controller=>'account', :action=>'logout' %><br/>
+</p>
+<% end %>
+<p><%= link_to (image_tag 'icons/feed-icon-16x16.gif'), :action=>'rss', :id=>@user.id %>
+</p>
+</div>

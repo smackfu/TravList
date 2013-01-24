@@ -1,0 +1,17 @@
+<div class="boxouter" style="width: 450px;">
+<h3><%= @title || 'Wishlist' %></h3>
+<div class="box">
+<% if placelist.size > 0 %>
+<% @singleuser = true %>
+<%= render_partial_collection 'userplace/userplace_brief', placelist %>
+<br class="clear">
+<br>
+<% else %>
+<p>Nothing in wishlist.</p>
+<% end %>
+<% if is_owner(@user) %>
+<%= link_to 'New wishlist place', :controller=>'userplace', :action=>'new', :trip_id=>@user.userpref.wishlist_trip_id %> 
+<% end %>
+</div>
+</div>
+

@@ -1,0 +1,2 @@
+module ContinentHelper
+end

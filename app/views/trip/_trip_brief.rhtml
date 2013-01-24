@@ -1,0 +1,15 @@
+  <div class="trips">
+    <div class="name">
+      <%= link_to trip_brief.name, :controller => 'trip',:action => 'show', :id =>trip_brief %>
+    </div>
+<% if !@singleuser -%>
+    <div class="user">
+      by <%= link_to trip_brief.user.login, :controller => 'user', :action => 'show', :id =>trip_brief.user %>
+    </div>
+<% end -%>
+    <div class="date">
+      <% date_text = trip_brief.start.strftime('%b %Y') -%>
+      <% date_text = '('+date_text+')' if trip_brief.start > DateTime.now -%>
+      <%= date_text %>
+    </div>
+  </div>

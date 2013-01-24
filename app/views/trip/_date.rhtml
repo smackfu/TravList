@@ -1,0 +1,10 @@
+<p id='newdate'><%= image_tag 'icons/calendar.png' %>
+<% if session[:user] == @trip.user -%>
+<%= link_to_remote @trip.start.strftime('%B %Y'), :update=>'newdate', :url=>{:controller=> 'trip', :action => 'editdate', :id => @trip}%>
+<% else -%>
+<%= @trip.start.strftime('%B %Y') %>
+<% end -%>
+<% if @trip.start > DateTime.now -%>
+(planned)
+<% end -%>
+</p>

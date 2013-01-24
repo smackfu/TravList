@@ -1,0 +1,30 @@
+<% @page_title = 'Edit place' %>
+<%= start_form_tag :action => 'update', :id => @userplace %>
+  <%= render :partial => 'form' %>
+
+<p><label for="userplace_review">Review</label><br/>
+<%= text_area 'userplace', 'review', 'rows'=>12  %></p>
+
+<p><label for="userplace_who_with">Travelling companions</label>
+<%= text_field 'userplace', 'who_with' %> (separate with commas)</p>
+
+<p><label for="userplace_major">Type of stop</label>
+<select id="userplace_major" name="userplace[major]">
+<option value="false" <%= ' selected' if !@userplace.major %>>Short visit</optio
+n>
+<option value="true" <%= ' selected' if @userplace.major %>>Extended stay</optio
+n>
+</select></p>
+
+<p><%= check_box 'userplace', 'nomap'  %>
+<label for="userplace_nomap">Don't include this stop on the trip map (useful for
+ airport layovers)</label></p>
+
+ <p>
+ <%= hidden_field 'userplace', 'dayorder'  %>
+
+
+  <%= submit_tag 'Save' %>
+<%= end_form_tag %>
+
+<%= link_to 'Show', :action => 'show', :id => @userplace %> 

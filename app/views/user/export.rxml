@@ -1,0 +1,21 @@
+xml.user do
+  xml.name @user.login
+  @trips.each do |trip|
+    xml.trip do
+      xml.name trip.name
+      xml.comment trip.comment
+      xml.startdate trip.start
+      xml.who_with trip.who_with
+      trip.userplace.each do |up|
+        xml.place do
+          xml.name up.place.name+', '+up.place.country.name
+          xml.startdate up.start_date
+          xml.enddate up.end_date if up.end_date
+          xml.review up.review
+          xml.who_with up.who_with if !up.who_with.blank?
+        end
+      end
+    end
+  end
+end
+

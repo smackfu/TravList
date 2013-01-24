@@ -1,0 +1,24 @@
+
+<!--[form:issue]-->
+<p><label for="issue_url">Page address</label><br/>
+<%= text_field 'issue', 'url', 'size'=>'50'  %></p>
+
+<p><label for="issue_severity">Why are you here?</label>
+<select id="issue_severity" name="issue[severity]">
+<option value="1" <%= ' selected' if @issue.severity == 1 || @issue.severity == 2 %>>I have a suggestion.</option>
+<option value="3" <%= ' selected' if @issue.severity == 3 || @issue.severity == 0 %>>I found a bug.</option>
+<option value="4" <%= ' selected' if @issue.severity == 4 %>>Something's really broken.</option>
+</select></p>
+
+
+<p><label for="issue_description">What went wrong, or could have gone better?</label><br/>
+<%= text_area 'issue', 'description', :rows => 10  %></p>
+
+<% if !logged_in %>
+<p><label for="issue_email">Your email, if you'd like a reply</label><br/>
+<%= text_field 'issue', 'email', 'size'=>'50'  %></p>
+<% end %>
+
+<%= hidden_field 'issue', 'user_id', 'value'=>@userid  %></p>
+<!--[eoform:issue]-->
+

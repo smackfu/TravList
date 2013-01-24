@@ -1,0 +1,17 @@
+<h1>Editing trip</h1>
+
+<%= start_form_tag :action => 'update', :id => @trip %>
+  <%= render :partial => 'form' %>
+  <p><label for="trip_comment">Notes</label><br/>
+  <%= text_area 'trip', 'comment', 'rows'=>15  %></p>
+
+
+  <p><label for="trip_who_with">Travelling companions</label><br/>
+  <%= text_field 'trip', 'who_with' %> (separate with commas)</p>
+  <%= submit_tag 'Save' %>
+
+<%= end_form_tag %>
+
+<p><%= link_to 'Add days or places', :controller => 'userplace', :action => 'new', :trip_id => @trip %></p>
+
+<%= link_to 'Back', @request.env['HTTP_REFERER'] %>

@@ -1,0 +1,11 @@
+<a name="flickr"></a>
+<% if @photos %>
+<div class="comment" style="width: 420px;">
+Select a photo:<br><br>
+<% for photo in @photos %>
+<a href="#flickr" onclick="document.getElementById('photo_flickr_id').value = <%= photo.id %>;"><img src="<%= photo.source('Square') %>"></a>
+<% end %>
+</div>
+<% else %>
+No photos found.
+<% end %>

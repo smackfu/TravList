@@ -1,0 +1,21 @@
+  <div class="userplaces">
+  <div class="name">
+	<% if userplace_brief.place.country %>
+  <%= link_to (image_tag 'flags/'+userplace_brief.place.country.isocode.downcase+'.gif', :title => userplace_brief.place.country.name, :size =>'16x11'), :controller=>'country', :action=>'show', :id=>userplace_brief.place.country %>
+<% end %>
+    <%= link_to userplace_brief.place.name, :controller => 'userplace',:action => 'show', :id =>userplace_brief %>
+  </div>
+  <% if !@singleuser %>
+  <div class="user">
+    <%= link_to userplace_brief.trip.user.login, :controller => 'user', :action => 'show', :id =>userplace_brief.trip.user %>
+  </div>
+  <% end %>
+  <% if userplace_brief.start_date %>
+  <div class="date">
+    <%= userplace_brief.start_date.strftime('%b %e, %Y')%>
+  </div>
+  <% else %>
+
+  <% end %>
+
+  </div>

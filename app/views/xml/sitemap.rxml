@@ -1,0 +1,43 @@
+xml.instruct! :xml, :version=> '1.0', :encoding => 'UTF-8'
+xml.urlset( :xmlns => 'http://www.google.com/schemas/sitemap/0.84') do
+  # First entry is the main entry to the site
+  xml.url do
+    xml.loc url_for(:controller => "meta", :action=> "index", :only_path => false)
+    xml.changefreq 'daily'
+    xml.priority '0.9'
+  end
+
+  for entry in @countries
+    xml.url do
+      xml.loc url_for(:controller=>'country', :action=>'show', :id=>entry, :only_path => false)
+      xml.changefreq 'weekly'
+      xml.priority '0.4'
+    end
+  end
+
+  for entry in @users
+    xml.url do
+      xml.loc url_for(:controller=>'user', :action=>'show', :id=>entry, :only_path => false)
+      xml.changefreq 'weekly'
+      xml.priority '0.5'
+    end
+  end
+
+  for entry in @userplaces
+    xml.url do
+      xml.loc url_for(:controller=>'userplace', :action=>'show', :id=>entry, :only_path => false)
+      xml.changefreq 'daily'
+      xml.priority '0.5'
+    end
+  end
+
+
+  for entry in @trips
+    xml.url do
+      xml.loc url_for(:controller=>'trip', :action=>'show', :id=>entry, :only_path => false)
+      xml.changefreq 'daily'
+      xml.priority '0.8'
+    end
+  end
+
+end

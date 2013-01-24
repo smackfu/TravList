@@ -1,0 +1,19 @@
+<%= error_messages_for 'daynote' %>
+
+<!--[form:daynote]-->
+<p><label for="daynote_date">Date</label>
+<%= date_select 'daynote', 'date', :include_blank=>true  %></p>
+
+<p><label for="daynote_notetype">Type</label>
+<%= select 'daynote', 'notetype_id', @notetypes.collect {|p| [ p.name, p.id ] } %>
+
+<p><label for="daynote_comment">Notes for this day</label><br>
+<%= text_area 'daynote', 'comment', 'rows'=>15  %></p>
+
+<p><%= check_box 'daynote', 'private'  %>
+<label for="daynote_private">Hide this note from other people</label> (<%= image_tag 'lockIcon.gif' %>)</p>
+
+<%= hidden_field 'daynote', 'userplace_id'  %>
+
+<!--[eoform:daynote]-->
+

@@ -1,0 +1,14 @@
+<h1>New suggestion or bug</h1>
+
+<p>All feedback is appreciated, and will really be read. No fooling.</p>
+
+<%= start_form_tag :action => 'create' %>
+<%= error_messages_for 'issue' %>
+
+<%= render :partial => 'basic' %>
+<%= submit_tag "Submit" %>
+<%= end_form_tag %>
+
+<% if is_admin -%>
+<%= link_to 'All bugs', :action=>'list'%>
+<% end -%>

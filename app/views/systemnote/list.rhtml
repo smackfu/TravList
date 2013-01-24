@@ -1,0 +1,16 @@
+<h3><%= link_to 'travList', :controller=>'meta', :action=>'index' %></h3>
+<h1>System notices</h1>
+
+<% @systemnotes.each do |note| %>
+<p class="boxheader"><%= note.start_date.strftime('%B %e, %Y') %><%= ' - '+note.title if !note.title.empty? %></p>
+<% if @session[:user].id == 1 %>
+<p class="boxheader sub"><%= link_to 'edit', { :action=> 'edit', :id => note.id } %></p>
+<p class="boxheader sub"><%= link_to 'delete', { :action => 'destroy', :id => note.id }, :confirm => 'Are you sure?' %></p>
+<% end %>
+<p class="review"><%= note.message %></p>
+
+<% end %>
+
+<% if @session[:user].id == 1 %>
+<%= link_to 'New notice', :action=>'new' %>
+<% end %>

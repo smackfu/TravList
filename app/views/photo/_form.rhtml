@@ -1,0 +1,43 @@
+<% @ajax = true %>
+<%= error_messages_for 'photo' %>
+<h3><%= image_tag 'flags/'+@userplace.place.country.isocode.downcase+'.gif' %>
+<%= link_to_unless (@userplace.place.country.id == 0), @userplace.place.country.name, :controller => 'country', :action=>'show',:id=>@userplace.place.country %>
+</h3>
+<h1><%= link_to @userplace.place.name, :controller=>'userplace', :action=>'show', :id=>@userplace %></h1>
+
+<!--[form:photo]-->
+<p><label for="photo_date">Date</label><br/>
+<%= date_select 'photo', 'date'  %></p>
+
+<p><%= check_box 'photo', 'private'  %>
+<label for="daynote_private">Only use this photo on your own pages</label></p>
+
+
+<h3>From Flickr</h3>
+<p>Tag <%= text_field_tag 'flickr_tag', @userplace.place.name %> 
+<a href="#" onclick="document.getElementById('flickr').innerHTML='Searching...'; new Ajax.Updater('flickr', '/photo/flickr?keyword='+document.forms[0].elements['flickr_tag'].value, {asynchronous:true, evalScripts:true, onFailure:function(request){alert('HTTP Error ' + request.status + '!')}}); return false;">Search your Flickr account</a><br>
+
+<div id="flickr">&nbsp;</div>
+
+<p><label for="photo_flickr_id">Flickr photo number</label>
+<%= text_field 'photo', 'flickr_id', 'size'=>20  %><br>
+<small>Copy this from the Flickr URL. The part you want is in blue:<br>
+&nbsp;http://www.flickr.com/photos/username/<span style='color: #0000FF'>100673944</span>/ or <br> 
+&nbsp;http://www.flickr.com/photos/username/<span style='color: #0000FF'>86911451</span>/in/set-72057594048712262/</small></p>
+
+
+<br>
+<p><i>or</i></p>
+<h3>From another site</h3>
+<p><label for="photo_url">Address / URL</label><br/>
+<%= text_field 'photo', 'url', 'size'=>64  %></p>
+
+<p><label for="photo_caption">Caption</label><br/>
+<%= text_field 'photo', 'caption', 'size'=>64  %><br>
+<small>(can be left blank)</small></p>
+
+
+<%= hidden_field 'photo', 'userplace_id'  %>
+
+<!--[eoform:photo]-->
+

@@ -1,0 +1,12 @@
+<% @page_title = 'Tag - '+@tagname %>
+<h3><%= link_to 'travList', :controller=>'meta', :action=>'index' %></h3>
+<h1><%= @tagname %></h1>
+
+<div class="boxouter" style="width: 500px;">
+<h3>Places</h3>
+<div class="box">
+<% @singleuser = false %>
+<%= render_partial_collection 'userplace/userplace_brief', @tagplaces %>
+<br>
+</div>
+</div>

@@ -1,0 +1,3 @@
+<select name="country">
+<%= options_for_select Country.find (:all, :order => "name").collect {|p| [ p.name, p.id ] }, country %>
+</select>

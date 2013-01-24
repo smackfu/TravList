@@ -1,0 +1,12 @@
+<%= error_messages_for 'trip' %>
+
+<!--[form:trip]-->
+<p><label for="trip_name">Name or short description</label><br/>
+<%= text_field 'trip', 'name'  %></p>
+
+<p><label for="trip_start">Start date</label><br/>
+<%= date_select 'trip', 'start', :start_year => 2010, :end_year => 1970  %></p>
+
+<%= hidden_field 'trip', 'user_id', 'value'=>@session[:user].id  %></p>
+<!--[eoform:trip]-->
+

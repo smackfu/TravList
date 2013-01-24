@@ -1,0 +1,14 @@
+<% @page_title = @user.login + ' - ' + @tagname %>
+<h3><%= link_to @user.login, :controller => 'user', :action=>'show', :id=>@user %></h3>
+<h1><%=h @tagname %></h1>
+
+<% if @tagplaces.size > 0 %>
+<p><%= image_tag 'google_icon.gif', :title=>'Google Maps' %> <%= link_to 'Map', :action=> 'tagmap', :id=>@user.id, :name=>@tagname %></p>
+
+<% @title = 'Places (' + @tagplaces.size.to_s + ')' %>
+<% @nofooter = true %>
+<%= render :partial => 'userplace/yourplaces', :locals => { :placelist => @tagplaces } %>
+<% end %>
+
+<br class="clear">
+<p><%= link_to 'All places with this tag', :controller => 'tag', :action=>'show', :id=>@tagname %></p>

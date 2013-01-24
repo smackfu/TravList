@@ -1,0 +1,16 @@
+<h1>All Users</h1>
+
+<% if @users.size > 0 %>
+<% lastmonth = '' %>
+<% for user in @users.reverse %>
+<% month = user.created_at.strftime('%B %Y')%>
+<% if month != lastmonth%>
+<h2><%= month %></h2>
+<% end %>
+    <%= link_to user.login, :controller => 'user',:action => 'show', :id =>user %><br>
+<% lastmonth = month%>
+<% end %>
+
+<br class="clear">
+<% end %>
+

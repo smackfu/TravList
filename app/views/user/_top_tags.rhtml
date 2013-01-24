@@ -1,0 +1,6 @@
+<% if tags.size > 0 -%>
+<p><%= image_tag 'icons/tag_orange.png' %>
+<% tags.each do |tag| %>
+<b><%= link_to tag['name'], :controller=>'user', :action=>'tag', :id=>@user, :name=>tag['name'] %></b> <small><%= '('+tag['count']+')'%></small>
+<% end -%>
+<% end -%>

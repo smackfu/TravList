@@ -1,0 +1,23 @@
+<%= error_messages_for 'country' %>
+
+<!--[form:country]-->
+<p><label for="country_name">Name</label><br/>
+<%= text_field 'country', 'name'  %></p>
+
+<p><label for="country_isocode">ISO Code</label><br/>
+<%= text_field 'country', 'isocode'  %></p>
+
+<p><label for="country_continent">Continent</label><br/>
+
+<select name="country[continent]">
+    <% @continents.each do |continent| %>
+    <option value="<%= continent.id %>" 
+        <%= ' selected' if continent.id == @country.continent_id %>>
+        <%= continent.name %>
+    </option>
+    <% end %>
+</select></p>
+
+
+<!--[eoform:country]-->
+

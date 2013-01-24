@@ -1,0 +1,7 @@
+<% photo = show_small -%>
+<% if !photo.flickr_id.blank?  %>
+<% if !photo.flickr_url.blank?  %>
+<%= link_to '<img class="photo" width="75" height="75" src="'+ photo.flickr_img+'_s.jpg" title="'+photo.caption+'">', :controller=>'userplace', :action=>'show', :id=>photo.userplace_id, :date=>photo.date %>
+<% else %>
+<% end %>
+<% end %>

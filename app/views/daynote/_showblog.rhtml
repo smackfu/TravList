@@ -1,0 +1,14 @@
+<% if !daynote.private  %>
+<div class="blognote">
+<h3 class="blog">
+<%= render :partial=>'country/flag', :locals => { :country => daynote.userplace.place.country }%>
+<%= link_to daynote.userplace.place.name, {:controller=> 'userplace', :action=>'show', :id=>daynote.userplace} %>
+<%= daynote.notetype.name.downcase if daynote.notetype_id != 0%> -  
+<small><%= daynote.date.strftime('%B %e, %Y') %></small>
+</h3>
+<p class="blog">
+<%= auto_link(h(daynote.comment).gsub("\n","<br>")) %>
+</p>
+</div>
+<% end %>
+

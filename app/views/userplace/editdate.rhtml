@@ -1,0 +1,89 @@
+<div class="xoutline">
+<!--[form:userplace]-->
+<!-- <%= form_remote_tag :url=>{:controller=> 'userplace', :action => 'updatedate', :id => @userplace}, :update=>'newdate' %> -->
+<%= form_tag :controller=> 'userplace', :action=>'update', :id => @userplace%>
+
+<p><label for="userplace_start_day">Dates of visit</label><br>
+<%= date_select 'userplace', 'start_date', :start_year => 2010, :end_year => 1970, :include_blank => true  %>
+to 
+<%= date_select 'userplace', 'end_date', :start_year => 2010, :end_year => 1970, :include_blank => true  %>
+(2nd optional)
+<% if @userplace.trip && @userplace.start_date %>
+<% if !@userplace.trip.fake %>
+<br><small>(Trip start date: <%= @userplace.trip.start %>)</small>
+<% start = @userplace.trip.start %>
+<% else %>
+<% start = @userplace.start_date %>
+<% end %>
+<% else %>
+<% start = Date::new(Time.now.year, Time.now.month, Time.now.day) %>
+<% end %><p>
+
+<% for j in 0..1 %>
+
+<% i = 1 %>
+<% date = Date::new(start.year, start.month, i) %>
+<div class="monthbox_outer">
+<div class="boxheader"><%= Date::MONTHNAMES[date.month] %> <%= date.year %></div>
+<div class="monthbox">
+<% for i in 0...date.wday %>
+<div class="calbox spacer">&nbsp;</div>
+<% end %>
+
+<% for i in 1...33 -%>
+<% next if !Date::valid_civil?(start.year, start.month, i) -%>
+<% date = Date::new(start.year, start.month, i) -%>
+<% if date.wday == 0 && date.day != 1 -%>
+<br class="clear">
+<% end -%>
+<% daynum = date - Date::new(1970,1,1) + 1 -%>
+<div id="<%= daynum %>" class="calbox" onclick="click('<%= daynum %>');"  onmouseover="show('<%= daynum %>');" onmouseout="hide('<%= daynum %>');" style="cursor: pointer;">&nbsp;</div>
+<% end -%>
+
+<br class="clear">
+</div>
+</div>
+
+<% start=start>>1 %>
+
+<% end %>
+<br class="clear">
+<!-- end calendar -->
+<% if @userplace.trip %>
+<% if !@userplace.trip.fake %>
+<% tripstart = @userplace.trip.start - Date::new(1970,1,1) + 1 -%>
+<p>or select by <label for="relativeday">day of trip</label>
+<select id="relativeday" name="relativeday" onchange="relativeDate(<%= tripstart %>, relativeday.value,0);">
+    <option value="0">-</option>
+    <% for i in 1..30 %>
+    <option value="<%= i %>"><%= i %></option>
+    <% end %>
+</select>
+to
+<select id="relativeday2" name="relativeday2" onchange="relativeDate(<%= tripstart %>,relativeday2.value,1);">
+    <option value="0">-</option>
+    <% for i in 1..30 %>
+    <option value="<%= i %>"><%= i %></option>
+    <% end %>
+</select>
+</p>
+<% end %>
+<% end %>
+
+<%= submit_tag "Save" %> |  <%= link_to 'Cancel',  :controller => 'userplace', :action => 'show', :id=>@userplace %>
+
+<%= end_form_tag %>
+
+
+<% if @userplace.start_date %>
+<script>
+lfirst = <%= @userplace.start_date - Date::new(1970,1,1) + 1 -%>;
+llast = lfirst;
+<% if @userplace.end_date %>
+llast = <%= @userplace.end_date - Date::new(1970,1,1) + 1 -%>;
+<% end %>
+paintCurrent();
+</script>
+<% end %>
+
+</div>

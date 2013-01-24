@@ -1,0 +1,9 @@
+<br>
+<div class="comment">
+<b>New note</b><br>
+<%= form_remote_tag :url=>{:controller=>'daynote',:action => 'create'},:update=>'newnote'%>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Save" %>
+<%= end_form_tag %>
+</div>
+

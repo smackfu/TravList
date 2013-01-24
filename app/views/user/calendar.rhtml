@@ -1,0 +1,69 @@
+<% @ajax = true %>
+<h3><%= link_to @user.login, :controller => 'user', :action=>'show', :id=>@user %></h3>
+<h1><%= @year %> calendar</h1>
+<p>&lt; <%= link_to @year-1, :year=> @year-1 %> |
+<%= link_to @year+1, :year=> @year+1 %> &gt;</p>
+
+<script>
+var MS_IN_DAY = 24 * 60 * 60 * 1000;
+function show(id)
+{
+	var d = new Date();
+	d.setTime(id*MS_IN_DAY);
+    document.getElementById(id).innerHTML = d.getDate();
+    document.getElementById(id).className = "calbox link";
+}
+
+function hide(id)
+{
+  document.getElementById(id).innerHTML = '&nbsp;';
+}
+
+function click(id)
+{
+	var d = new Date();
+	d.setTime(id*MS_IN_DAY);
+	document.getElementById('month'+(d.getMonth()+1)).innerHTML = d.getDate();    
+}
+
+</script>
+
+<div class="calbox link" style="margin-left: 10px;">&nbsp;</div>&nbsp;= Visited place (clickable) </br>
+
+<% lastmonth = 0 %>
+<div>
+<div>
+<% for i in 1...365 -%>
+<% date = Date::ordinal(@year,i) -%>
+<% if lastmonth != date.month -%>
+<br class="clear">
+</div>
+<div id='month<%= lastmonth%>' class='calplace'>&nbsp;</div> 
+</div>
+<div class="monthbox_outer">
+<div class="boxheader"><%= Date::MONTHNAMES[date.month] %></div>
+<div class="monthbox">
+<% for j in 0...date.wday -%>
+  <div class="calbox spacer">&nbsp;</div>
+<% end -%>
+<% end -%>
+<% if date.wday == 0 && date.day != 1 -%>
+<br class="clear">
+<% end -%>
+<% dayval = @cal[i] -%>
+<% if dayval -%>
+<% daynum = date - Date::new(1970,1,1) + 1 -%>
+  <div id='<%= daynum %>' class="calbox link" onclick="new Ajax.Updater(<%= 'month'+date.month.to_s %>, '/user/day/<%= @user.id %>?year=<%= @year %>&day=<%= date.yday %>', {asynchronous:true, evalScripts:true}); return false;;" onmouseover="show('<%= daynum %>');" onmouseout="hide('<%= daynum %>');" style="cursor: pointer;">&nbsp;</div>
+<% else -%>
+  <div class="calbox">&nbsp;</div>
+<% end -%>
+<% if lastmonth != date.month -%>
+<% end -%>
+<% lastmonth = date.month -%>
+<% end -%>
+<br class="clear">
+</div>
+<div id='month<%= lastmonth%>' class='calplace'></div> 
+</div>
+
+

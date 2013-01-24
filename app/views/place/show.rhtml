@@ -1,0 +1,51 @@
+<% @page_title = @place.country.name + ' - ' + @place.name  %>
+<% @showad = true %>
+
+<h3><%= image_tag 'flags/'+@place.country.isocode.downcase+'.gif', :size =>'16x11' %>
+<%= link_to @place.country.name, :controller => 'country', :action =>'show',:id=>@place.country %></h3>
+<h1><%= @place.name %></h1>
+<% if !@place.localname.empty? %>
+<i><%= @place.localname %></i><br>
+<% end %>
+
+<% if @place.lat != 0 %>
+<p><%= image_tag 'google_icon.gif', :title=>'Google Maps' %> <%= link_to 'Map', :action=> 'map', :id => @place %></p>
+<% end %>
+
+<% if @photos %>
+<%= render_partial_collection 'photo/show_small', @photos %>
+<% end %>
+
+<% if @rating > 0 %>
+<p>
+<% for i in 1..5 %>
+<% if @rating  >= i %>
+<%= image_tag 'star.gif', :size=>'16x16' %>
+<% else %>
+<%= image_tag 'dot.gif', :size=>'16x16' %>
+<% end %>
+<% end %>
+(<%= pluralize(@ratingcount.to_i, 'rating') %>)</p>
+<% end %>
+
+
+<% for userplace in @reviewplaces %>
+
+<p class="boxheader">review by <%= link_to userplace.trip.user.login, :controller=> 'userplace', :action=>'show', :id=>userplace %></p>
+<p class="review"><%= h(userplace.review).gsub("\n","<br>") %></p>
+
+<% end %>
+
+<%= render_partial 'userplace/userlist' %>
+
+
+<% if @session[:user] %>
+<p><%= link_to 'Add a visit to this place', :controller => 'userplace', :action => 'new', :placename => @place.name %></p>
+<%= link_to 'Edit', :action => 'edit', :id => @place %> |
+<% if @session[:user].id == 1 %>
+<%= link_to 'Delete', :action => 'destroy', :id => @place %> | 
+<% end %>
+<% end %>
+<a href="<%= @request.env['HTTP_REFERER'] %>">Back</a>
+
+

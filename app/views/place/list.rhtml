@@ -1,0 +1,27 @@
+<h1>Listing places</h1>
+
+<table>
+  <tr>
+  <% for column in Place.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for place in @places %>
+  <tr>
+  <% for column in Place.content_columns %>
+    <td><%=h place.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => place %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => place %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => place }, :confirm => 'Are you sure?', :post => true %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @place_pages.current.previous } if @place_pages.current.previous %>
+<%= link_to 'Next page', { :page => @place_pages.current.next } if @place_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New place', :action => 'new' %>

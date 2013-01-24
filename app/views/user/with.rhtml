@@ -1,0 +1,13 @@
+<% @page_title = @user.login + ' - with ' + @name %>
+<h3><%= link_to @user.login, :controller => 'user', :action=>'show', :id=>@user %></h3>
+<h1><%=h 'With ' +  @name %></h1>
+
+<% @title = 'Trips' %>
+<% @nofooter = true %>
+<%= render :partial => 'trip/yourtrips', :locals => { :triplist => @user.trips_with(@name) } %>
+
+<% if @user.userplaces_with(@name).size > 0 %>
+<% @title = 'Places' %>
+<% @nofooter = true %>
+<%= render :partial => 'userplace/yourplaces', :locals => { :placelist => @user.userplaces_with(@name) } %>
+<% end %>

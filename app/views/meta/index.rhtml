@@ -1,0 +1,64 @@
+<h1><%= image_tag 'logo.gif' %>&nbsp; travList</h1>
+
+<% if !session[:user] %>
+
+<p>Welcome to travList, a site to help you keep track of all your travels. Where you've been, where you're going.  When you were there, comments, reviews, Flickr photos, whatever. And then, once you've got it all entered, do <i>stuff</i> with it. I created this for myself, but I figure other people might find it useful.  Who knows?</p>
+
+<p><b>What you can do once you <%= link_to 'create an account', :controller => 'account', :action =>'login' %>:</b><ul><li>create <a href="http://www.travlist.com/trip/show/20">your own trips</a></li><li>write <a href="http://www.travlist.com/userplace/show/59">place reviews</a></li><li>see a <a href="http://www.travlist.com/user/calendar/1">calendar</a> of your travels</li><li>see <a href="http://www.travlist.com/user/scorecard/1">how many countries</a> you've been to</li><li>look at <a href="http://www.travlist.com/trip/map/34">trip maps</a></li><li> make a travel wishlist</li><li>... and whatever else you can suggest.</ul></p>
+
+<%= render_partial_collection 'photo/show_small', @photos %>
+
+<div class="divider">&nbsp;</div>
+<br>
+<% end %>
+
+<%= start_form_tag({:controller => 'place', :action => 'search'}, {:method=>'get'}) %>
+    Search for a placename: <%= text_field_tag 'placename'  %>
+    <%= submit_tag 'Search' %>
+<%= end_form_tag %>
+
+
+<% if !session[:user] %>
+<!== render_partial 'trip/alltrips', @trips %>
+
+<% else %>
+<% @title = 'Recent places' %>
+<% @readonly = true %>
+<!-- render :partial => 'userplace/yourplaces', :locals => { :placelist => @userplaces } %-->
+
+<br>
+<div class="boxouter" style="width: 300px;">
+<h3>Popular places</h3>
+<div class="box">
+<div class="name">&nbsp; </div>
+<div class="number"><b>Visitors</b></div>
+<% @top_places.each do |place| %>
+<div>
+<div class="name"><%= link_to (image_tag 'flags/'+place.country.isocode.downcase+'.gif', :title => place.country.name, :size =>'16x11'), :controller=>'country', :action=>'show', :id=>place.country %> 
+<%= link_to place.name, :controller=>'place', :action=>'show',:id=>place.id %> </div>
+<div class="number"><%= place.count %> </div>
+</div>
+<% end %>
+<br class="clear">
+</div>
+</div>
+<br class="clear">
+
+<br class="clear">
+<%= render_partial_collection 'photo/show_small', @photos %>
+
+
+<% if @systemnotes.size > 0 -%>
+<% @systemnotes.each do |note| -%>
+<p class="boxheader">system notice - <%= note.start_date.strftime('%B %e') %><%= ' - '+note.title if !note.title.empty? %></p>
+<p class="review"><%= note.message %></p>
+<% end -%>
+<small><%= link_to 'Past notices', :controller=>'systemnote', :action=>'list' %></small>
+<% end -%>
+
+<% end %>
+
+<p><%= link_to 'Browse places', :action=>'world' %><br>
+<small>A starting point if you want to explore.</small></p>
+
+<a href="http://travlist.blogspot.com/">travList blog</a> / <%= link_to 'About travList', :action=>'about' %>

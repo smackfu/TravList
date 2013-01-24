@@ -1,0 +1,99 @@
+<% @ajax = true if session[:user] == @trip.user %>
+<% @page_title = @trip.user.login + ' - ' + @trip.name %>
+<link rel="alternate" type="application/rss+xml" title="RSS" href="<%= url_for :action=>'rss', :id=>@trip.id %>">
+<h3><%= link_to @trip.user.login, :controller => 'user', :action=>'show', :id=>@trip.user %></h3>
+<h1 id="tripname"><%=h @trip.name %></h1>
+<% if session[:user] == @trip.user %>
+<%= in_place_editor 'tripname', :url => url_for(:controller=>'trip', :action=>'updatename', :id=>@trip)  %>
+<% end %>
+<%= render_partial 'date' %>
+<% if @trip.who_with.length > 0 %>
+<p>with 
+<% whos = @trip.who_with.split(',') %>
+<% for who in whos %><% who = who.strip %><%= ' and ' if who == whos.last.strip && whos.size != 1 %><%= ', ' if who != whos.first.strip && who != whos.last.strip && whos.size != 1%><%= link_to h(who), :controller=>'user', :action=>'with', :id=>@trip.user.id, :name=>who  %><%= '.' if who == whos.last.strip %><% end %>
+<% end %>
+</p>
+
+<% if @trip.comment != nil && @trip.comment.chop.length!=0 %>
+<p class="boxheader">notes</p>
+<p class="comment""><span id="tripcomment"><%= auto_link(h(@trip.comment).gsub("\n","<br>")) %></span></p>
+<% end %>
+
+<% if @trip.userplace && @trip.userplace.size > 0 %>
+<p><%= image_tag 'google_icon.gif', :title=>'Google Maps' %> <%= link_to 'Route map', :action => 'map', :id => @trip %>
+<!-- (<%= link_to 'major stops only', :action => 'mapmajor', :id => @trip %>) --></p>
+<% end %>
+
+<% if session[:user] == @trip.user %>
+<p><%= link_to 'Edit trip', :action => 'edit', :id => @trip %> | 
+<%= link_to 'Delete trip', { :action => 'destroy', :id => @trip }, :confirm => 'Are you sure?' ,:post => true %></p>
+<% end %>
+
+
+<%= render_partial_collection 'photo/show_small', @trip.allphotos %>
+
+<div class="divider">&nbsp;</div>
+<br>
+
+<% if @days.size > 0 -%>
+<div class="triplist">
+<% @days.keys.sort.each do |i| -%>
+<% day = @days[i] -%>
+<% next if !day -%>
+<div class="daylist">
+<div class="day">
+<% @reldate = @tripstart + i - 1 -%>
+<% if i != 0 -%>
+<% if false && i < 365 && i >= 0 -%>
+Day <%= i %><br>
+<small><%= Date::ABBR_DAYNAMES[@reldate.wday] %></small>
+<% else -%>
+<%= Date::ABBR_MONTHNAMES[@reldate.month] %> <%= @reldate.day %><br>
+<small><%= Date::ABBR_DAYNAMES[@reldate.wday] %></small>
+<% end -%>
+<% if session[:user] == @trip.user -%>
+<small><%= link_to '(+)', :controller => 'userplace', :action => 'new', :trip_id => @trip, :date => @reldate %></small>
+<% end -%>
+<% else -%>
+No date<br>
+<% end -%>
+</div>
+
+<div class="daybox">
+<% for userplace in day.sort { |a, b| (a.id <=> b.id) } -%>
+<% if userplace.major -%>
+<p class="major">
+<% else -%>
+<p>
+<% end -%>
+<%= link_to (image_tag 'flags/'+userplace.place.country.isocode.downcase+'.gif', :title => userplace.place.country.name, :size =>'16x11'), :controller=>'country', :action=>'show', :id=>userplace.place.country %>
+<%= link_to userplace.place.name, :controller => 'userplace', :action=>'show', :id=>userplace.id, :date => @tripstart + i - 1 %>&nbsp;
+<% hasnotes = userplace.daynote_for(@reldate).size > 0 -%>
+<% hasreview = (userplace.review != '') -%>
+<% hasphoto = userplace.photo_for(@reldate).size > 0 -%>
+<% if hasnotes || hasreview || hasphoto -%>
+<a href="<%= url_for  :controller => 'userplace', :action=>'show', :id=>userplace.id,  :date => @tripstart + i - 1 %>" class="icon">
+<%= image_tag 'icons/page_white_edit.png', :title => 'has notes' if hasnotes -%>
+<%= image_tag 'icons/speech_bubble.gif', :title => 'has a review' if hasreview -%>
+<%= image_tag 'icons/image.gif', :title => 'has a photo' if hasphoto -%></a></p>
+<% end -%>
+<% end -%>
+<br class="clear">
+</div>
+</div>
+<% end -%>
+</div>
+
+<div class="triplegend">
+<%= image_tag 'icons/page_white_edit.png' %> = has notes<br>
+<%= image_tag 'icons/image.gif' %> = has a photo<br>
+</div>
+<br class="clear">
+
+<p><%= link_to 'Show all notes', :action=>'allnotes', :id=>@trip %></p>
+<% end %>
+
+<% if session[:user] == @trip.user %>
+<p><%= link_to 'Add days or places', :controller => 'userplace', :action => 'new', :trip_id => @trip,  :date=>@tripstart %></p>
+<% end %>
+

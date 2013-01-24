@@ -1,0 +1,8 @@
+<a name="flickr"></a>
+<% if @photos %>
+<% for photo in @photos %>
+<a href="#flickr" onclick="document.getElementById('userplace_flickr_photo').value = <%= photo.id %>;"><img src="<%= photo.source('Square') %>"></a>
+<% end %>
+<% else %>
+No photos found.
+<% end %>

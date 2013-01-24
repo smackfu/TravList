@@ -1,0 +1,33 @@
+<% @ajax = true %>
+<%= error_messages_for 'userplace' %>
+
+<!--[form:userplace]-->
+
+<p><label for="place_country">Trip</label>
+
+<select name="userplace[trip_id]">
+    <% @trips.each do |trip| %>
+    <option value="<%= trip.id %>" <%= 'selected' if (@userplace.trip && @userplace.trip.id == trip.id) || (!@userplace.trip && trip.name == 'Not on a trip') %>>
+        <%= trip.name %>
+    </option>
+    <% end %>
+</select></p>
+
+<p><label for="userplace_url">City/town</label><br/>
+<% if @userplace.place %>
+<%= text_field_tag 'placename', @userplace.place.name, 'size'=>32  %>
+<% else %>
+<%= text_field_tag 'placename', '', 'size'=>32 %>
+<% end %>
+<% if @userplace.trip %>
+<%= hidden_field 'userplace', 'trip_id', 'value'=>@userplace.trip.id  %>
+<% end %>
+<br><small>&nbsp;Without the country, e.g.  Florence or Miami, FL.</small></p>
+
+<div id="choices">
+</div>
+<p>
+
+<!-- observe_field 'placename', :on=>'blur', :url=>{:controller=> 'place', :action => 'findbyname'}, :update=>'choices',:with => "'name=' + escape(value)" -->
+<!--[eoform:userplace]-->
+

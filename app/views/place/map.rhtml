@@ -1,0 +1,24 @@
+<% @showmap = true %>
+<h3><%= link_to @place.country.name, :controller => 'country', :action =>'show',:id=>@place.country %></h3>
+<h1><%= link_to @place.name, :action=>'show', :id=>@place %></h1>
+
+<p><b>Lat/Long:</b> <%= @place.lat %>/<%= @place.long %></p>
+
+<% if @place.long != 0 %>
+<div id="map" style="width: 500px; height: 400px"></div>
+<script type="text/javascript" defer="defer">
+//<![CDATA[
+
+var map = new GMap2(document.getElementById("map"));
+map.addControl(new GSmallMapControl());
+map.addControl(new GMapTypeControl());
+var orig = new GLatLng (<%= @place.lat %>, <%= @place.long %>); 
+map.setCenter(orig, 12, G_HYBRID_MAP);
+marker = new GMarker(orig);
+map.addOverlay(marker);
+  
+//]]>
+</script>
+<% end %>
+
+<br>

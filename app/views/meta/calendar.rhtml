@@ -1,0 +1,60 @@
+<h3><%= link_to 'travList', :action=>'index'%></h3>
+<h1>All user calendar</h1>
+
+<script>
+function show(index, day)
+{
+  document.getElementById('day'+index).innerHTML = day;
+}
+
+function hide(index)
+{
+  document.getElementById('day'+index).innerHTML = '&nbsp;';
+}
+
+</script>
+
+<p>
+<div class="calbox spacer">&nbsp;</div>
+<div class="calbox weight1">&nbsp;</div>
+<div class="calbox weight2">&nbsp;</div>
+<div class="calbox weight3">&nbsp;</div>
+<div class="calbox weight4">&nbsp;</div>
+<div class="calbox weight5">&nbsp;</div>
+</p>
+
+<% lastmonth = 0 %>
+<div>
+<div>
+<% for i in 1...365 -%>
+<% date = Date::ordinal(2004,i) -%>
+<% if lastmonth != date.month -%>
+<br class="clear"> 
+</div>
+</div>
+<div class="monthbox_outer">
+<div class="boxheader"><%= Date::MONTHNAMES[date.month] %></div>
+<div class="monthbox">
+<% for j in 0...date.wday -%>
+  <div class="calbox spacer">&nbsp;</div>
+<% end -%>
+<% end -%>
+<% if date.wday == 0 && date.day != 1 -%>
+<br class="clear">
+<% end -%>
+<% dayval = @cal[date.month.to_s + date.day.to_s ] -%>
+<% if dayval  -%>
+  <div id='day<%= i %>' class="calbox weight<%= ((4*dayval.to_i)/@maxcount).round+1 %>" onmouseover="show(<%= i %>,<%= dayval %>);" onmouseout="hide(<%= i %>);" style="cursor: pointer;">&nbsp;</div>
+<% else -%>
+  <div class="calbox">&nbsp;</div>
+<% end -%>
+<% if lastmonth != date.month -%>
+<% end -%>
+<% lastmonth = date.month -%>
+<% end -%>
+<br class="clear">
+</div>
+</div>
+
+<div id=ToolTip> 
+</div> 

@@ -1,0 +1,25 @@
+<%= error_messages_for 'place' %>
+
+<!--[form:place]-->
+<p><label for="place_name">Place name</label><br/>
+<% if @session[:user].id == 1 %>
+<%= text_field 'place', 'name'  %></p>
+<% else %>
+<%= text_field 'place', 'name', "readonly"=>'true'  %></p>
+<% end %>
+
+<p><label for="place_localname">Local language name</label><br/>
+<%= text_field 'place', 'localname'  %><br>
+<small>(just leave it blank if it's in English already or you don't know)</small></p>
+
+<p><label for="place_country">Country</label><br/>
+
+<select name="place[country_id]">
+    <option value="0">Unknown</option>
+    <% @countries.each do |country| -%>
+    <option value="<%= country.id %>"<%= ' selected' if country.id == @place.country_id -%>><%= country.name -%></option>
+    <% end -%>
+</select></p>
+
+<!--[eoform:place]-->
+

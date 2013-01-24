@@ -1,0 +1,65 @@
+<% userplaces = map_many -%>
+<% if userplaces.size > 0 %>
+<p>(Please be patient with Google's slowness.)</p>
+<div style="width: 1px; height: 400px; float: left;"></div>
+<div id="map" style="width: 600px; height: 400px"></div>
+<script type="text/javascript" defer="defer">
+//<![CDATA[
+
+var map = new GMap2(document.getElementById("map"));
+map.addControl(new GSmallMapControl());
+map.addControl(new GMapTypeControl());
+//map.setMapType(G_SATELLITE_TYPE);   
+//map.setMapType(G_HYBRID_TYPE);   
+
+var baseIcon = new GIcon();
+baseIcon.image = "/images/pushpin.png";
+baseIcon.iconSize = new GSize(16, 16);
+baseIcon.iconAnchor = new GPoint(8, 8);
+baseIcon.infoWindowAnchor = new GPoint(9, 2);
+baseIcon.infoShadowAnchor = new GPoint(18, 25);
+
+// Create a marker whose info window displays the given number.
+function createMarker(point, label, icon) {
+   var marker = new GMarker(point,icon);
+
+  // Show this marker's index in the info window when it is clicked.
+  var html = label;
+  GEvent.addListener(marker, 'click', function() {
+        marker.openInfoWindowHtml(html);
+  });
+
+  return marker;
+}
+
+var bounds = new GLatLngBounds();
+<% for userplace in userplaces %>
+var thispoint = new GLatLng(<%= userplace.place.lat %>, <%= userplace.place.long %>);
+bounds.extend(thispoint);
+<% end %>
+var newZoom = map.getBoundsZoomLevel(bounds); 
+map.setCenter(bounds.getCenter(), newZoom, G_HYBRID_MAP); 
+
+<% for userplace in userplaces %>
+
+popupHTML = '<div style="white-space:nowrap;"><%= link_to escape_javascript(userplace.place.name), :controller=>'userplace', :action=>'show', :id=>userplace %></div>';
+
+map.addOverlay(createMarker(new GLatLng(<%= userplace.place.lat %>, <%= userplace.place.long %>),popupHTML,baseIcon));
+<% end %>
+
+//]]>
+</script>
+
+<% else %>
+<p>Nothing to map.</p>
+<% end %>
+<% if @errors.size > 0 %>
+<br>
+<p><b>Note:</b> The following location(s) were missing lat/long and are not included in the map:</p>
+<ul>
+<% for error in @errors %>
+<li><%= link_to error.name, :controller=>'place', :action=>'edit', :id=>error.id %></li>
+<% end %>
+</ul>
+<p>This is supposed to be automatically looked up but it is not foolproof.  If you click through and update those fields,  the missing places will  be added to the map.</p>
+<% end %>

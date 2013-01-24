@@ -1,0 +1,53 @@
+/* orange color template */
+
+.fieldWithErrors {
+  background-color: #44BB33;
+}
+
+#ErrorExplanation {
+  border-color:  #44BB33;
+}
+
+#ErrorExplanation h2 {
+  background-color: #44BB33;
+}
+
+div.boxouter {
+  border-color: #44BB33;
+}
+
+div.boxouter h3 {
+  background-color: #44BB33;
+}
+
+div.border {
+  border-color: #44BB33;
+  background-image: url(/images/bg.jpg);
+  background-repeat: repeat-y;
+}
+
+div.login {
+  border-color: #44BB33;
+}
+
+div.tab {
+  background-color: #44BB33;
+}
+
+div.tab a:hover{
+  background-color: #44BB33;
+}
+
+div.divider {
+  background-color: #44BB33;
+}
+
+div.edge {
+  border-color: #44BB33;
+}
+
+.calbox.link {
+  background-color: #44BB33;
+}
+
+

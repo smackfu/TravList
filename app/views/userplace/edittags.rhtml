@@ -1,0 +1,6 @@
+<!--[form:trip]-->
+<%= form_remote_tag :url=>{:controller=> 'userplace', :action => 'updatetags', :id => @userplace}, :update=>'newtags' %>
+<%= image_tag 'icons/tag_orange.png' %>
+<%= text_field_tag 'tags',  @userplace.tag_names.join(" "), :size=>50  %>
+<%= submit_tag "Save" %> |  <%= link_to 'Cancel',  :controller => 'userplace', :action => 'show', :id=>@userplace %>
+<%= end_form_tag %>

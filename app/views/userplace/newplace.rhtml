@@ -1,0 +1,22 @@
+<h1>New place name</h1>
+
+<p>You entered a place name that hasn't been used before.  Not a problem!</p>
+
+<p>Please enter the country and any of the optional info that you desire.</p>
+
+<%= start_form_tag :action => 'createplace' %>
+
+<!--[form:place]-->
+<p><label for="place_name">Place name</label><br/>
+<%= text_field 'place', 'name', "value"=>@session[:placename], "readonly"=>'true'  %></p>
+
+<p><label for="place_country">Country</label><br/>
+
+<select name="place[country_id]">
+	<%= options_for_select Country.find (:all, :order => "name").collect {|p| [ p.name, p.id ] } %>
+</select></p>
+<%= hidden_field_tag 'userplace_id', @userplace_id %> 
+
+<!--[eoform:place]-->
+<%= submit_tag "Create" %>
+<%= end_form_tag %>

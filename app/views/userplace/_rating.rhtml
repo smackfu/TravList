@@ -1,0 +1,11 @@
+<% for i in 1..5 -%>
+<% icon = "dot.gif" -%>
+<% icon = "star.gif" if @userplace.rating >= i -%>
+<% if is_owner(@userplace.trip.user) -%>
+  <%= link_to_remote (image_tag icon, :size=>'16x16',:title=>i.to_s+' star rating'), :update=>'rating', :url=>{:action=>'rating', :id=>@userplace, :rating=>i } %>
+<% else -%>
+  <%= image_tag icon, :size=>'16x16',:title=>@userplace.rating.to_s+' star rating' if @userplace.rating != 0 -%>
+<% end -%>
+<% end -%>
+<%= image_tag "dot.gif", :style=>'display:none;' %>
+<%= image_tag "star.gif", :style=>'display:none;' %>

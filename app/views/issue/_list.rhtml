@@ -1,0 +1,9 @@
+<% if @issues.size > 0 %>
+<% for issue in @issues %>
+<% if !(@issue && issue.id == @issue.id) %>
+<%= '<small><strike>' if issue.closed %>
+<%= link_to issue.description[0..60]+(issue.description.length>60?' (...)':''), {:action =>'show', :id=>issue}, :class => 'issue'+(issue.severity.to_s) %> (<%= issue.id %>)<br>
+<%= '</strike></small>' if issue.closed %>
+<% end %>
+<% end %>
+<% end %>

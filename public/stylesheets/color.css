@@ -1,0 +1,216 @@
+/* generic color template - all the greyscale colors */
+
+body {
+  background-color: #3b3c3b;
+  background-image: url(/images/paths.gif); 
+}
+
+pre {
+  background-color: #eee;
+}
+
+a { color: #000; }
+a:visited { color: #666; }
+a:hover { color: #fff; background-color:#000; }
+
+.fieldWithErrors {
+  background-color: #FF5726;
+}
+
+#ErrorExplanation {
+  border-color:  #FF5726;
+  background-color: #f0f0f0;
+}
+
+#ErrorExplanation h2 {
+  background-color: #FF5726;
+  color: #fff;
+}
+
+#ErrorExplanation p {
+  color: #333;
+}
+
+#ErrorExplanation ul li {
+}
+
+div.progressBar div.border {
+  background-color: #fff;
+  border-color: grey;
+}
+
+div.progressBar div.background {
+  background-color: #333;
+}
+
+div.boxouter {
+  background-color: #FFFFFF;
+}
+
+div.boxouter h3 {
+  color: #FFFFFF;
+  background-color: #FF5726;
+}
+
+div.border {
+  background-color: #FFFFFF;
+  border-color: #FF5726;
+  background-image: url(/images/bg.jpg);
+  background-repeat: repeat-y;
+}
+
+div.content {
+}
+
+div.login {
+  background-color: #FFFFFF;
+  border-color: #FF5726;
+}
+
+div.footer {
+}
+
+div.tab {
+  background-color: #FF5726;
+  color: #FFFFFF;
+}
+
+div.tabtop {
+  border-color: #3b3c3b;
+}
+
+div.tabactive {
+}
+
+div.tabbottom {
+}
+
+div.logo {
+}
+div.tab a{
+}
+
+div.tab a{
+  color: #FFFFFF;
+}
+
+div.tab a:hover{
+  background-color: #FF5726;
+  color: #000000;
+}
+
+.boxheader {
+  background-color: #CCCCCC;
+  border-color: #FFFFFF;
+}
+
+.boxheader.sub {
+  background-color: #AAAAAA;
+}
+
+.boxheader.sub a {
+  color: #FFFFFF;
+}
+
+
+.comment, .review {
+  border-color: #CCCCCC;
+  background-color: #EEEEEE;
+}
+
+p.blog {
+  border-color: #CCCCCC;
+  background-color: #F6F6F6;
+}
+
+.outline {
+  border-color: #CCCCCC;
+}
+
+img.photo {
+  border-color: #DDDDDD;
+  background-color: #FFFFFF;
+}
+
+img {
+  border-color: #FFF;
+}
+
+a:hover img {
+  color: #fff;
+  background-color:#fff;
+  border-color: #000;
+  }
+
+div.day {
+  border-color: #CCC;
+  background-color: #EEE;
+}
+
+div.daylist {
+  border-color: #CCC;
+  }
+
+
+div.daylist img {
+}
+
+div.divider {
+  background-color: #FF5726;
+}
+
+div.daybox {
+}
+
+div.box {
+  background-color: #FFFFFF;
+}
+
+div.edge {
+  border-color: #FF5726;
+}
+
+.prog-bar {
+  background: #C9DDEC;
+}
+
+.prog-border {
+  background: #fff;
+}
+
+.calbox {
+  background-color: #FFFFFF;
+  border-color: #DDDDDD;
+}
+
+.calbox.link {
+  background-color: #FF5726;
+  color: #FFF;
+}
+
+.calbox.dark {
+  background-color: #AAAAAA;
+}
+
+.calbox.spacer {
+  background-color: #EEEEEE;
+  border-color: #EEEEEE;
+}
+
+.monthbox {
+  border-color: #CCCCCC;
+  background-color: #EEEEEE;
+}
+
+div.triplegend {
+  border-color: #DDDDDD;
+}
+
+/* issues */
+a.issue4 { color: #FF0000; text-decoration: none;}
+a.issue3 { color: #880000; text-decoration: none;}
+a.issue2 { color: #000088; text-decoration: none;}
+a.issue1 { color: #0000FF; text-decoration: none;}
+a.issue0 { color: #000000; text-decoration: none;}
+
+

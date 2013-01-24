@@ -1,0 +1,15 @@
+<h1>Welcome!</h1>
+
+<p>Thanks for joining travlist.  Here are a few places to get started:</p>
+<h3><%= link_to 'Your preferences page', :controller=>'userpref', :action=>'edit', :id=>@userpref %></h3>
+<p>It has some stuff like email address that  you may want to fill out.  And you can change the color from this ghastly orange if you wish.</p>
+
+<h3><%= link_to 'Your user page', :controller=>'user', :action=>'show', :id=>@user %></h3>
+<p>It lists all your trips and the last few places you've entered.  Plus it has links to your map and your calendar and everything else.</p>
+
+<h3><%= link_to 'The front page', :action=>'index' %></h3>
+<p>This one is just a general starting point.  It has a search box and a way to browse through all the places in the system.  You can always get there by clicking the travList logo at the bottom right of every page.</p>
+
+<p>Good luck!</p>
+
+<p>(And if anything goes wrong, don't hesitate to use that bugs/suggestion link down there.)</p>

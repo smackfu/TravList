@@ -1,0 +1,19 @@
+<%= error_messages_for 'systemnote' %>
+
+<!--[form:systemnote]-->
+<p><label for="systemnote">Start date</label><br/>
+<%= date_select 'systemnote', 'start_date'  %></p>
+
+<p><label for="systemnote">End date</label><br/>
+<%= date_select 'systemnote', 'end_date'  %></p>
+
+<p><label for="systemnote">Title</label><br/>
+<%= text_field 'systemnote', 'title'  %></p>
+
+<p><label for="systemnote">Message</label><br/>
+<%= text_area 'systemnote', 'message'  %></p>
+
+<p><label for="systemnote">Public</label><br/>
+<select id="systemnote" name="systemnote[public]"><option value="false" selected>False</option><option value="true">True</option></select></p>
+<!--[eoform:systemnote]-->
+

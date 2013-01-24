@@ -1,0 +1,32 @@
+<div id="newdate">
+<p>
+<%= image_tag 'icons/calendar.png' %>
+<% if @userplace.start_date -%>
+<% if @userplace.end_date && @userplace.end_date.year == @userplace.start_date.year && @userplace.end_date != @userplace.start_date -%>
+<%= @userplace.start_date.strftime('%B %e') %>
+<% else -%>
+<%= @userplace.start_date.strftime('%B %e, %Y') %>
+<% end -%>
+<% if @userplace.end_date && @userplace.end_date != @userplace.start_date -%>
+ to
+<% if @userplace.end_date.month == @userplace.start_date.month -%>
+<%= @userplace.end_date.strftime('%e, %Y') %>
+<% else -%>
+<%= @userplace.end_date.strftime('%B %e, %Y') %>
+<% end -%>
+<% end -%>
+<% if @userplace.start_date > DateTime.now -%> 
+(planned)
+<% else -%>
+(<%= time_ago_in_words @userplace.end_date || @userplace.start_date %> ago)
+<% end -%>
+<% else -%>
+Undated
+<% end -%>
+<% if session[:user] == @userplace.trip.user -%>
+&nbsp;&nbsp;<%= link_to_remote 'Change date', :update=>'newdate', :url=>{:controller=> 'userplace', :action => 'editdate', :id => @userplace} %>
+<% end -%>
+<br>
+
+</p>
+</div>

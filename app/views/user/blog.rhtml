@@ -1,0 +1,11 @@
+<h3><%= link_to @user.login, :controller => 'user', :action=>'show', :id=>@user %></h3>
+<h1>Travel Journal</h1>
+<% @user.blogitems.each do |item| %>
+
+<% if item.class == Daynote %>
+<%= render :partial => "daynote/showblog", :locals => { :daynote => item } %>
+<% elsif item.class == Photo %>
+<%= render :partial => "photo/showblog", :locals => { :photo => item } %>
+<% end %>
+	
+<% end %>

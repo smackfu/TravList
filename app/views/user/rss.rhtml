@@ -1,0 +1,16 @@
+<rss version="0.91">
+  <channel>
+    <title><%= @user.login %> @ travList</title>
+    <link>http://www.travlist.com<%= url_for :action=>'show', :id=>@user.id %></link> 
+    <description>Recently updated places by <%= @user.login %>, from travList.</description>
+    <language>en-us</language>
+<% @userplaces.each do |userplace| %>
+    <item>
+      <title><%= userplace.place.name %><% if userplace.start_date %> on <%= userplace.start_date.strftime('%a, %b %e, %Y') %><% end %></title>
+      <link>http://www.travlist.com<%= url_for :controller=>'userplace', :action=>'show', :id=>userplace.id %></link>
+      <% if userplace.updated_at %><pubDate><%= Time.parse(userplace.updated_at.strftime("%c")).rfc2822() %></pubDate><% end %>
+      <% if !userplace.review.blank? %><description><%=h userplace.review %></description><% end %>
+    </item>
+<% end %>
+  </channel>
+</rss>

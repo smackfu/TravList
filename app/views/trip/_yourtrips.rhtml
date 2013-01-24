@@ -1,0 +1,23 @@
+<div class="boxouter" style="width: 450px;">
+<h3><%= @title || 'Trips' %></h3>
+<div class="box">
+<% if triplist.size > 0 %>
+<% @singleuser = true %>
+<div class="trips">
+<div class="name">&nbsp;</div>
+<div class="date"><b>From</b></div>
+</div>
+<%= render_partial_collection 'trip/trip_brief', triplist %>
+<br>
+<br class="clear">
+<% else %>
+<p>No trips created yet.</p>
+<% end %>
+<% if !@nofooter %>
+<% if session[:user] == @user %>
+<%= link_to 'New trip', :controller=>'trip', :action=>'new' %>
+<% end %>
+<% end %>
+</div>
+</div>
+

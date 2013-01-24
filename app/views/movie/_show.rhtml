@@ -1,0 +1,10 @@
+<% movie = show -%>
+
+<div class="photobox" id="movie<%= movie.id %>">
+<% if @session[:user] == @userplace.trip.user -%>
+<p class="boxheader sub"><%= link_to 'edit', { :controller=> 'movie', :action=> 'edit', :id => movie.id } %></p>
+<p class="boxheader sub"><%= link_to_remote 'delete', :update=>'movie'+movie.id.to_s, :url=>{ :controller=> 'movie', :action => 'destroy', :id => movie.id}, :confirm => 'Are you sure?' %></p>
+<% end -%>
+<div class="photo"><object width="425" height="350"><param name="movie" value="http://www.youtube.com/v/<%= movie.youtube_id %>"></param><embed src="http://www.youtube.com/v/<%= movie.youtube_id %>" type="application/x-shockwave-flash" width="425" height="350"></embed></object></div>
+</div>
+

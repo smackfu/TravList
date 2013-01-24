@@ -1,0 +1,42 @@
+<h3><%= link_to @user.login, :controller => 'user', :action=>'show', :id=>@user %></h3>
+<h1>Travel scorecard</h1>
+
+<p>Countries visited (<%= @countries.size %>
+out of
+<%= @allcountries.size %>):<br>
+<% for country in @countries  %>
+<%= image_tag 'flags/'+country.isocode.downcase+'.gif' %>
+<% if country.name != @countries[@countries.size-1].name %>
+<%= country.name %>,
+<% else %>
+<%= country.name %>
+<% end %>
+<% end %>
+</p>
+
+<div class="prog-border">
+  <div class="prog-bar" style="width: <%= ((100*@countries.size)/@allcountries.size) %>% ;">
+  </div>
+</div>
+
+<p>Continents visited (<%= @continents.size %>
+out of
+<%= @allcontinents.size %>):<br>
+<% for continent in @continents  %>
+<% if continent.name != @continents[@continents.size-1].name %>
+<%= continent.name %>,
+<% else %>
+<%= continent.name %>
+<% end %>
+<% end %>
+</p>
+
+<div class="prog-border">
+  <div class="prog-bar" style="width: <%= ((100*@continents.size)/@allcontinents.size) %>% ;">
+  </div>
+</div>
+
+<p>
+<img class="photo" src="http://www.world66.com/myworld66/visitedCountries/worldmap?visited=<%= @countrystring.upcase %>"></p>
+Map courtesy of <a href="http://www.world66.com/myworld66">World 66</a>.
+

@@ -1,0 +1,6 @@
+<!--[form:trip]-->
+<%= form_remote_tag :url=>{:controller=> 'trip', :action => 'updatedate', :id => @trip}, :update=>'newdate' %>
+
+<%= image_tag 'icons/calendar.png' %><%= date_select 'trip', 'start', :start_year => 2010, :end_year => 1970  %> <%= submit_tag "Save" %> |  <%= link_to 'Cancel',  :controller => 'trip', :action => 'show', :id=>@trip %>
+
+<%= end_form_tag %>

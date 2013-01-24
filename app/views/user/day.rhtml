@@ -1,0 +1,3 @@
+<% for userplace in @userplaces %>
+<%= link_to userplace.place.name, :controller=>'userplace', :action=>'show', :id=>userplace %><br>
+<% end %>

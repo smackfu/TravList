@@ -1,0 +1,27 @@
+<h1>Listing userplaces</h1>
+
+<table>
+  <tr>
+  <% for column in Userplace.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for userplace in @userplaces %>
+  <tr>
+  <% for column in Userplace.content_columns %>
+    <td><%=h userplace.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => userplace %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => userplace %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => userplace }, :confirm => 'Are you sure?' %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @userplace_pages.current.previous } if @userplace_pages.current.previous %>
+<%= link_to 'Next page', { :page => @userplace_pages.current.next } if @userplace_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New userplace', :action => 'new' %>

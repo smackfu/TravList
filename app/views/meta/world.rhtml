@@ -1,0 +1,19 @@
+<h3><%= link_to 'travList', :action=>'index'%></h3>
+<h1>The World</h1>
+
+<div class="boxouter" style="width: 300px;">
+<h3>Continents</h3>
+<div class="box">
+<div class="name">&nbsp; </div>
+<div class="number"><b>Places</b></div>
+<% for continent in @continents %>
+<div>
+<div class="name"><%= link_to continent.name, :controller=>'continent', :action=>'show', :id=>continent.id %> </div>
+<div class="number"><%= continent.count %> </div>
+</div>
+<% end %>
+<br class="clear">
+</div>
+</div>
+<br class="clear">
+

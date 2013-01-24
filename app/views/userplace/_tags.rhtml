@@ -1,0 +1,18 @@
+<div id="newtags">
+<% if @userplace.tag_names.size > 0 -%>
+<p><%= image_tag 'icons/tag_orange.png' %>
+<% @userplace.tag_names.each do |tag_name| %>
+<b><%= link_to tag_name, :controller=>'user', :action=>'tag', :id=>@userplace.trip.user.id, :name=>tag_name%></b>
+<% end -%>
+<% if @session[:user] == @userplace.trip.user %>
+&nbsp;&nbsp;<%= link_to_remote 'Change tags', :update=>'newtags', :url=>{:controller=> 'userplace', :action => 'edittags', :id => @userplace} %>
+</p>
+<% end %>
+<% else %>
+<% if @session[:user] == @userplace.trip.user %>
+<p><%= image_tag 'icons/tag_orange.png' %>
+<%= link_to_remote 'Add tags', :update=>'newtags', :url=>{:controller=> 'userplace', :action => 'edittags', :id => @userplace} %>
+</p>
+<% end %>
+<% end -%>
+</div>

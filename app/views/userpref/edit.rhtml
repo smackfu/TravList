@@ -1,0 +1,25 @@
+<h3><%= link_to @userpref.user.login, :controller => 'user', :action=>'show', :id=>@userpref.user.id %></h3>
+<h1>Preferences</h1>
+
+<%= start_form_tag :action => 'update', :id => @userpref %>
+
+<%= error_messages_for 'userpref' %>
+
+<p><label>Email address</label><br/>
+<%= text_field 'userpref', 'email'  %><br>
+<small>(only for announcements and not shown to <b>anyone</b>)</small></p>
+
+<p><label>Homepage address</label><br/>
+<%= text_field 'userpref', 'url'  %><br>
+<small>(to show on your user page)</small></p>
+
+<p><label>Flickr username</label><br/>
+<%= text_field 'userpref', 'flickr_name'  %><br>
+<small>(for automatic Flickr lookups)</small></p>
+
+<%= submit_tag 'Save' %>
+<%= end_form_tag %>
+
+<%= render_partial 'meta/style' %>
+
+<%= link_to 'Back', @request.env['HTTP_REFERER'] %>
